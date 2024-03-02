@@ -3,9 +3,49 @@ import 'package:flutter_supabase/login.dart';
 import 'package:flutter_supabase/signup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'main.dart';
+// app bar -> can be reusable component
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final VoidCallback onBack;
 
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    required this.onBack,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold,
+            fontSize: 32, // Adjust the font size as needed
+            color: Colors.black87, // Change the color of the text
+          ),
+        ),
+      ),
+      centerTitle: true,
+      leading: CircleAvatar(
+        backgroundColor: Colors.white, // Background color of the circle
+        child: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black), // Ensure icon color contrasts with background
+          onPressed: onBack,
+        ),
+      ),
+    );
+  }
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+// main component page
 class DataProtectionPrivacyPage extends StatefulWidget {
   const DataProtectionPrivacyPage({super.key});
 
@@ -14,12 +54,10 @@ class DataProtectionPrivacyPage extends StatefulWidget {
 }
 
 class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
-
   // Navigate to the login page when disagree is clicked
   void goToLoginPage() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
-
   // Navigate to the signup page when agree is clicked
   void goToSignupPage() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpPage()));
@@ -29,6 +67,12 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Registration',
+        onBack: () {
+          Navigator.pop(context);
+        },
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -40,26 +84,26 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                 Card(
                   color: Colors.white, // Set card color to white
                   elevation: 2, // Add elevation for shadow effect
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), // Rounded corners for the card
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), // Rounded corners for the card
                   child: Padding(
                     padding: const EdgeInsets.all(16.0), // Add padding inside the card
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
+                        Text("DATA PRIVACY POLICY",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins( // Use Go
+                              color: const Color(0xFF1A915A),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              height: 4,
+                            )),
+                        buildTextWithIndentation(
                           "RA 10173, otherwise known as the Data Privacy Act, seeks to protect the citizens’ right to their personal, sensitive information. By proceeding to answering this form, you agree to submit your own data, which the data manager pledges to not publish or disclose any information without due consent or permission of its owner.",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                          ),
                         ),
-                        const SizedBox(height: 20), // Adjust the height value to control the vertical space
-                        Text(
+                        const SizedBox(height: 20), // Vertical space
+                        buildTextWithIndentation(
                           "I hereby agree to submitting personal information and attest that the information to be provided in this form is complete, true, and correct.",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                          ),
                         ),
                       ],
                     ),
@@ -73,53 +117,65 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                     top: 15.0,
                     bottom: 0,
                   ),
-                  child: GestureDetector(
-                    onTap: goToLoginPage, // Navigate to login page when disagree is clicked
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 45,
-                      width: 360,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF8CD0CE), // Updated to your specific green color
-                        borderRadius: BorderRadius.circular(50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align buttons at the start and end of the row
+                    children: [
+                      GestureDetector(
+                        onTap: goToLoginPage,
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50,
+                          width: 155, // Adjust width according to your design
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF8CD0CE),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: const Text(
+                            "I DISAGREE",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ),
-                      child: const Text(
-                        "I DISAGREE",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,                        ),
+                      const SizedBox(width: 20), // Add space between buttons
+                      GestureDetector(
+                        onTap: goToSignupPage,
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50,
+                          width: 155, // Adjust width according to your design
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF1A915A),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: const Text(
+                            "I AGREE",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
+                const SizedBox(height: 30), // Adjust the height value to control the vertical space
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 15.0,
-                    right: 15.0,
-                    top: 10.0,
+                    left: 0,
                     bottom: 0,
                   ),
-                  child: GestureDetector(
-                    onTap: goToSignupPage, // Navigate to signup page when agree is clicked
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 45,
-                      width: 360,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A915A), // Updated to your specific green color
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const Text(
-                        "I AGREE",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,         ),
-                      ),
-                    ),
+                  child: SvgPicture.asset(
+                    'assets/Images/sidechurch.svg',
+                    width: 200,
+                    height: 200,
                   ),
                 ),
               ],
@@ -129,4 +185,21 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
       ),
     );
   }
+}
+
+Widget buildTextWithIndentation(String text, {double indentSize = 20.0}) {
+  return Text.rich(
+    TextSpan(
+      children: [
+        WidgetSpan(
+          child: SizedBox(width: indentSize), // Indent size
+        ),
+        TextSpan(text: text),
+      ],
+    ),
+    textAlign: TextAlign.justify,
+    style: GoogleFonts.poppins(
+      fontSize: 14,
+    ),
+  );
 }
