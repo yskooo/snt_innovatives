@@ -50,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 200,
                   height: 200,
                 ),
+                const SizedBox(height: 30), // Adjust the height value to control the vertical space
                 Text("weConnect",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins( // Use GoogleFonts to specify the Poppins font
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontStyle: FontStyle.italic,
                       height: 0,
                     )),
-                SizedBox(height: 40), // Adjust the height value to control the vertical space
+                const SizedBox(height: 30), // Adjust the height value to control the vertical space
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(color: Colors.white70),
                         ),
-                        hintStyle: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
+                        hintStyle: const TextStyle(fontSize: 12.0, color: Colors.blueGrey),
                         contentPadding: const EdgeInsets.all(12),
                       ),
                     ),
@@ -166,21 +167,22 @@ class _LoginPageState extends State<LoginPage> {
                     right: 15.0,
                     top: 15.0,
                     bottom: 0,
-                  ),                  child: GestureDetector(
+                  ),
+                  child: GestureDetector(
                     onTap: signIn,
                     child: Container(
                       alignment: Alignment.center,
                       height: 45,
                       width: 360,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF1A915A), // Updated to your specific green color
+                        color: const Color(0xFF8CD0CE), // Updated to your specific green color
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: const Text(
                         "LOG IN",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black87,
                           fontSize: 17,
                           fontWeight: FontWeight.w600,                        ),
                       ),
@@ -188,36 +190,35 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    right: 15.0,
+                    top: 10.0,
+                    bottom: 0,
+                  ),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpPage()));
                     },
-                    child: RichText(
-                        text: TextSpan(
-                          children: <InlineSpan>[
-                            TextSpan(
-                              text: "Already have an account?",
-                              style:
-                                  TextStyle(color: Colors.blueGrey.shade300, fontSize: 12, fontWeight: FontWeight.w400),
-                            ),
-                            TextSpan(
-                              text: ' ',
-                              style:
-                                  TextStyle(color: Colors.indigo.shade300, fontSize: 12, fontWeight: FontWeight.w700),
-                            ),
-                            const TextSpan(
-                              text: "Register",
-                              style: TextStyle(
-                                  color: Color(0xFF1A915A),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700),
-                            )
-                          ],
-                        ),
-                        textAlign: TextAlign.center),
+                    child: Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: 360,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1A915A), // Updated to your specific green color
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Text(
+                      "REGISTER",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,                        ),
+                    ),
                   ),
-                )
+                ),
+                ),
               ],
             ),
           ),
