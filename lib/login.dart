@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'main.dart';
+import 'data_protection_privacy.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -198,7 +199,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpPage()));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DataProtectionPrivacyPage()));
                     },
                     child: Container(
                     alignment: Alignment.center,

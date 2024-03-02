@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_supabase/login.dart';
 import 'package:flutter_supabase/signup.dart';
-
+import 'package:flutter_supabase/data_protection_privacy.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:device_preview/device_preview.dart';
