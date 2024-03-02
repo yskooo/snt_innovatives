@@ -3,7 +3,51 @@ import 'package:flutter_supabase/login.dart';
 import 'package:flutter_supabase/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart'; 
 
+// app bar -> can be reusable component
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final VoidCallback onBack;
+
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    required this.onBack,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      toolbarHeight: 200,
+      title: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.black87,
+          ),
+        ),
+      ),
+      centerTitle: true,
+      leading: CircleAvatar(
+        backgroundColor: Colors.white,
+        child: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: onBack,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+// Main SignUp Component Page
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -63,10 +107,29 @@ class _SignUpPageState extends State<SignUpPage> {
       debugPrint('Passwords do not match');
     }
   }
+  Future<void> _selectBirthday(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != DateTime.now()) {
+      setState(() {
+        birthdayController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Registration',
+        onBack: () {
+          Navigator.pop(context);
+        },
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -79,7 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 // Adjust the height value to control the vertical space
                 Text("PERSONAL INFORMATION",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins( // Use Go
+                    style: GoogleFonts.poppins(
                       color: const Color(0xFF1A915A),
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
@@ -92,9 +155,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: firstNameController, hintText: 'First Name'),
                 _buildTextField(
                     controller: middleNameController, hintText: 'Middle Name'),
-                _buildTextField(
-                    controller: birthdayController, hintText: 'Birthday'),
-                _buildTextField(controller: ageController, hintText: 'Age'),
+                GestureDetector(
+                  onTap: () => _selectBirthday(context),
+                  child: AbsorbPointer(
+                    child: _buildTextField(
+                      controller: birthdayController,
+                      hintText: 'Birthday',
+                    ),
+                  ),
+                ),
                 _buildTextField(controller: maritalStatusController,
                     hintText: 'Marital Status'),
                 _buildTextField(controller: homeAddressController,
@@ -115,10 +184,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       fontSize: 17,
                       height: 0,
                     )),
-                _buildTextField(controller: employmentTypeController, hintText: 'Type of Employment'),
-                _buildTextField(controller: companyNameController, hintText: 'Company Name'),
-                _buildTextField(controller: companyAddressController, hintText: 'Company Address'),
-                _buildTextField(controller: monthlyIncomeController, hintText: 'Monthly Income'),
+                _buildTextField(controller: employmentTypeController,
+                    hintText: 'Type of Employment'),
+                _buildTextField(controller: companyNameController,
+                    hintText: 'Company Name'),
+                _buildTextField(controller: companyAddressController,
+                    hintText: 'Company Address'),
+                _buildTextField(controller: monthlyIncomeController,
+                    hintText: 'Monthly Income'),
 
                 // Legal Information Form Fields
                 const SizedBox(height: 20),
@@ -130,10 +203,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       fontSize: 17,
                       height: 0,
                     )),
-                _buildTextField(controller: governmentIdController, hintText: 'Government ID'),
-                _buildTextField(controller: educationController, hintText: 'Highest Education Attainment'),
-                _buildTextField(controller: schoolController, hintText: 'School/University'),
-                _buildTextField(controller: courseController, hintText: 'Course'),
+                _buildTextField(controller: governmentIdController,
+                    hintText: 'Government ID'),
+                _buildTextField(controller: educationController,
+                    hintText: 'Highest Education Attainment'),
+                _buildTextField(controller: schoolController,
+                    hintText: 'School/University'),
+                _buildTextField(
+                    controller: courseController, hintText: 'Course'),
 
                 // Health Information Form Fields
                 const SizedBox(height: 20),
@@ -145,10 +222,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       fontSize: 17,
                       height: 0,
                     )),
-                _buildTextField(controller: weightController, hintText: 'Weight (kg)'),
-                _buildTextField(controller: heightController, hintText: 'Height (cm)'),
-                _buildTextField(controller: diseaseController, hintText: 'Disease'),
-                _buildTextField(controller: medicationController, hintText: 'Medication'),
+                _buildTextField(
+                    controller: weightController, hintText: 'Weight (kg)'),
+                _buildTextField(
+                    controller: heightController, hintText: 'Height (cm)'),
+                _buildTextField(
+                    controller: diseaseController, hintText: 'Disease'),
+                _buildTextField(
+                    controller: medicationController, hintText: 'Medication'),
 
                 const SizedBox(height: 20),
                 Text("ACCOUNT",
@@ -199,38 +280,43 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                 ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
-                      },
-                      child: RichText(
-                          text: TextSpan(
-                            children: <InlineSpan>[
-                              TextSpan(
-                                text: "Already have an account?",
-                                style:
-                                TextStyle(color: Colors.blueGrey.shade300, fontSize: 12, fontWeight: FontWeight.w400),
-                              ),
-                              TextSpan(
-                                text: ' ',
-                                style:
-                                TextStyle(color: Colors.indigo.shade300, fontSize: 12, fontWeight: FontWeight.w700),
-                              ),
-                              const TextSpan(
-                                text: "Login",
-                                style: TextStyle(
-                                    color: Color(0xFF1A915A),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700),
-                              )
-                            ],
-                          ),
-                          textAlign: TextAlign.center),
-                    ),
-                  )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
+                    },
+                    child: RichText(
+                        text: TextSpan(
+                          children: <InlineSpan>[
+                            TextSpan(
+                              text: "Already have an account?",
+                              style:
+                              TextStyle(color: Colors.blueGrey.shade300,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            TextSpan(
+                              text: ' ',
+                              style:
+                              TextStyle(color: Colors.indigo.shade300,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            const TextSpan(
+                              text: "Login",
+                              style: TextStyle(
+                                  color: Color(0xFF1A915A),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700),
+                            )
+                          ],
+                        ),
+                        textAlign: TextAlign.center),
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -242,13 +328,14 @@ class _SignUpPageState extends State<SignUpPage> {
     required TextEditingController controller,
     required String hintText,
     bool obscureText = false,
+    bool isDropdown = false, // New parameter
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
-        textAlignVertical: TextAlignVertical.top, // Correct placement
+        textAlignVertical: TextAlignVertical.top,
         decoration: InputDecoration(
           hintText: hintText,
           border: OutlineInputBorder(
@@ -263,12 +350,17 @@ class _SignUpPageState extends State<SignUpPage> {
             borderRadius: BorderRadius.circular(51),
             borderSide: const BorderSide(color: Colors.black54),
           ),
+          suffixIcon: isDropdown
+              ? Icon(Icons.arrow_drop_down, color: Colors.grey) // Dropdown icon
+              : null,
           hintStyle: const TextStyle(fontSize: 12.0, color: Colors.blueGrey),
           contentPadding: const EdgeInsets.all(12),
-          // Align label with hint is still valid for when the label/hint is displayed inside the text field
           alignLabelWithHint: true,
         ),
+        readOnly: isDropdown, // Make field read-only if it's a dropdown
       ),
     );
   }
 }
+
+
