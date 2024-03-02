@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       textTheme: GoogleFonts.poppinsTextTheme(),
       useMaterial3: true,
       ),
-      home: const SignUpPage(),
+      home: const LoginPage(),
       );
     }
 }
@@ -55,6 +55,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   //Sign Out User
   Future<void> signOut() async {
     await supabase.auth.signOut();
