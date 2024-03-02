@@ -20,14 +20,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarHeight: 200,
       title: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(20.0),
         child: Text(
           title,
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.bold,
-            fontSize: 32, // Adjust the font size as needed
+            fontSize: 24, // Adjust the font size as needed
             color: Colors.black87, // Change the color of the text
           ),
         ),
@@ -45,7 +46,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
-// main component page
+
+// Main Privacy Policy Component Page
 class DataProtectionPrivacyPage extends StatefulWidget {
   const DataProtectionPrivacyPage({super.key});
 
