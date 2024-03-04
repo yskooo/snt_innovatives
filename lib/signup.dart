@@ -3,49 +3,7 @@ import 'package:flutter_supabase/login.dart';
 import 'package:flutter_supabase/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart'; 
-
-// app bar -> can be reusable component
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  final VoidCallback onBack;
-
-  const CustomAppBar({
-    Key? key,
-    required this.title,
-    required this.onBack,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      toolbarHeight: 200,
-      title: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-            color: Colors.black87,
-          ),
-        ),
-      ),
-      centerTitle: true,
-      leading: CircleAvatar(
-        backgroundColor: Colors.white,
-        child: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: onBack,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
+import 'package:intl/intl.dart';
 
 // Main SignUp Component Page
 class SignUpPage extends StatefulWidget {
@@ -107,6 +65,9 @@ class _SignUpPageState extends State<SignUpPage> {
       debugPrint('Passwords do not match');
     }
   }
+
+
+  // Dropdown Birthday
   Future<void> _selectBirthday(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -120,6 +81,32 @@ class _SignUpPageState extends State<SignUpPage> {
       });
     }
   }
+
+  // Dropdown Marital Status
+  String? selectedMaritalStatus;
+  final List<String> maritalStatuses = [
+    'Single',
+    'Married',
+    'Divorced',
+    'Widowed',
+    'Separated',
+    'Other',
+  ];
+
+// Dropdown Gender
+  String? selectedGender;
+  List<String> genders = ['Male', 'Female', 'Other'];
+
+// Dropdown of Employment
+  String? selectedEmploymentType;
+  List<String> employmentTypes = ['Full-time', 'Part-time', 'Self-employed', 'Unemployed'];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedMaritalStatus = null; // Default value
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -140,21 +127,29 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 const SizedBox(height: 40),
                 // Adjust the height value to control the vertical space
-                Text("PERSONAL INFORMATION",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFF1A915A),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      height: 0,
-                    )),
+                Text(
+                  "PERSONAL INFORMATION",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xFF1A915A),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    height: 0,
+                  ),
+                ),
                 // Personal Information Form Fields
                 _buildTextField(
-                    controller: surnameController, hintText: 'Surname'),
+                  controller: surnameController,
+                  hintText: 'Surname',
+                ),
                 _buildTextField(
-                    controller: firstNameController, hintText: 'First Name'),
+                  controller: firstNameController,
+                  hintText: 'First Name',
+                ),
                 _buildTextField(
-                    controller: middleNameController, hintText: 'Middle Name'),
+                  controller: middleNameController,
+                  hintText: 'Middle Name',
+                ),
                 GestureDetector(
                   onTap: () => _selectBirthday(context),
                   child: AbsorbPointer(
@@ -164,82 +159,201 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                 ),
-                _buildTextField(controller: maritalStatusController,
-                    hintText: 'Marital Status'),
-                _buildTextField(controller: homeAddressController,
-                    hintText: 'Home Address'),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    contentPadding: const EdgeInsets.all(14),
+                  ),
+                  value: selectedMaritalStatus,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedMaritalStatus = newValue;
+                      if (newValue != 'Other') {
+                        maritalStatusController.clear();
+                      }
+                    });
+                  },
+                  hint: const Text("Marital Status"), // Placeholder text as a hint
+                  items: maritalStatuses.map<DropdownMenuItem<String>>(
+                        (String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    },
+                  ).toList(),
+                ),
                 _buildTextField(
-                    controller: barangayController, hintText: 'Barangay'),
+                  controller: homeAddressController,
+                  hintText: 'Home Address',
+                ),
                 _buildTextField(
-                    controller: genderController, hintText: 'Gender'),
-                _buildTextField(controller: contactNumberController,
-                    hintText: 'Contact Number'),
-                // Employment Information Form Fields
+                  controller: barangayController,
+                  hintText: 'Barangay',
+                ),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    contentPadding: const EdgeInsets.all(14),
+                  ),
+                  value: selectedGender,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedGender = newValue;
+                    });
+                  },
+                  items: genders.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  hint: const Text("Select Gender"),
+                ),
+                _buildTextField(
+                  controller: contactNumberController,
+                  hintText: 'Contact Number',
+                ),
                 const SizedBox(height: 20),
-                Text("EMPLOYMENT",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFF1A915A),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      height: 0,
-                    )),
-                _buildTextField(controller: employmentTypeController,
-                    hintText: 'Type of Employment'),
-                _buildTextField(controller: companyNameController,
-                    hintText: 'Company Name'),
-                _buildTextField(controller: companyAddressController,
-                    hintText: 'Company Address'),
-                _buildTextField(controller: monthlyIncomeController,
-                    hintText: 'Monthly Income'),
-
-                // Legal Information Form Fields
-                const SizedBox(height: 20),
-                Text("LEGAL INFORMATION",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFF1A915A),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      height: 0,
-                    )),
-                _buildTextField(controller: governmentIdController,
-                    hintText: 'Government ID'),
-                _buildTextField(controller: educationController,
-                    hintText: 'Highest Education Attainment'),
-                _buildTextField(controller: schoolController,
-                    hintText: 'School/University'),
+                Text(
+                  "EMPLOYMENT",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xFF1A915A),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(51),
+                      borderSide: const BorderSide(color: Colors.black54),
+                    ),
+                    contentPadding: const EdgeInsets.all(14),
+                  ),
+                  value: selectedEmploymentType,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedEmploymentType = newValue;
+                    });
+                  },
+                  items: employmentTypes.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  hint: const Text("Employment Type"),
+                ),
                 _buildTextField(
-                    controller: courseController, hintText: 'Course'),
-
+                  controller: companyNameController,
+                  hintText: 'Company Name',
+                ),
+                _buildTextField(
+                  controller: companyAddressController,
+                  hintText: 'Company Address',
+                ),
+                _buildTextField(
+                  controller: monthlyIncomeController,
+                  hintText: 'Monthly Income',
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  "LEGAL INFORMATION",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xFF1A915A),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    height: 0,
+                  ),
+                ),
+                _buildTextField(
+                  controller: governmentIdController,
+                  hintText: 'Government ID',
+                ),
+                _buildTextField(
+                  controller: educationController,
+                  hintText: 'Highest Education Attainment',
+                ),
+                _buildTextField(
+                  controller: schoolController,
+                  hintText: 'School/University',
+                ),
+                _buildTextField(
+                  controller: courseController,
+                  hintText: 'Course',
+                ),
                 // Health Information Form Fields
                 const SizedBox(height: 20),
-                Text("HEALTH INFORMATION",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFF1A915A),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      height: 0,
-                    )),
+                Text(
+                  "HEALTH INFORMATION",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xFF1A915A),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    height: 0,
+                  ),
+                ),
                 _buildTextField(
-                    controller: weightController, hintText: 'Weight (kg)'),
+                  controller: weightController,
+                  hintText: 'Weight (kg)',
+                ),
                 _buildTextField(
-                    controller: heightController, hintText: 'Height (cm)'),
+                  controller: heightController,
+                  hintText: 'Height (cm)',
+                ),
                 _buildTextField(
-                    controller: diseaseController, hintText: 'Disease'),
+                  controller: diseaseController,
+                  hintText: 'Disease ("None")',
+                ),
                 _buildTextField(
-                    controller: medicationController, hintText: 'Medication'),
-
+                  controller: medicationController,
+                  hintText: 'Medication ("N/A")',
+                ),
                 const SizedBox(height: 20),
-                Text("ACCOUNT",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFF1A915A),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      height: 0,
-                    )),
+                Text(
+                  "ACCOUNT",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xFF1A915A),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    height: 0,
+                  ),
+                ),
                 // Email TextField
                 _buildTextField(
                   controller: emailController,
@@ -288,32 +402,36 @@ class _SignUpPageState extends State<SignUpPage> {
                           builder: (context) => const LoginPage()));
                     },
                     child: RichText(
-                        text: TextSpan(
-                          children: <InlineSpan>[
-                            TextSpan(
-                              text: "Already have an account?",
-                              style:
-                              TextStyle(color: Colors.blueGrey.shade300,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400),
+                      text: TextSpan(
+                        children: <InlineSpan>[
+                          TextSpan(
+                            text: "Already have an account?",
+                            style: TextStyle(
+                              color: Colors.blueGrey.shade300,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
                             ),
-                            TextSpan(
-                              text: ' ',
-                              style:
-                              TextStyle(color: Colors.indigo.shade300,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700),
+                          ),
+                          TextSpan(
+                            text: ' ',
+                            style: TextStyle(
+                              color: Colors.indigo.shade300,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                             ),
-                            const TextSpan(
-                              text: "Login",
-                              style: TextStyle(
-                                  color: Color(0xFF1A915A),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700),
-                            )
-                          ],
-                        ),
-                        textAlign: TextAlign.center),
+                          ),
+                          const TextSpan(
+                            text: "Login",
+                            style: TextStyle(
+                              color: Color(0xFF1A915A),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 )
               ],
@@ -351,10 +469,13 @@ class _SignUpPageState extends State<SignUpPage> {
             borderSide: const BorderSide(color: Colors.black54),
           ),
           suffixIcon: isDropdown
-              ? Icon(Icons.arrow_drop_down, color: Colors.grey) // Dropdown icon
+              ? const Icon(Icons.arrow_drop_down, color: Colors.grey) // Dropdown icon
               : null,
-          hintStyle: const TextStyle(fontSize: 12.0, color: Colors.blueGrey),
-          contentPadding: const EdgeInsets.all(12),
+          hintStyle: const TextStyle(
+            fontSize: 12.0,
+            color: Colors.blueGrey,
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
           alignLabelWithHint: true,
         ),
         readOnly: isDropdown, // Make field read-only if it's a dropdown
@@ -364,3 +485,44 @@ class _SignUpPageState extends State<SignUpPage> {
 }
 
 
+// App bar -> can be a reusable component
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final VoidCallback onBack;
+
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    required this.onBack,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      toolbarHeight: 200,
+      title: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.black87,
+          ),
+        ),
+      ),
+      centerTitle: true,
+      leading: CircleAvatar(
+        backgroundColor: Colors.white,
+        child: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: onBack,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
