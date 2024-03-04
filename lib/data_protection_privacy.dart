@@ -88,7 +88,7 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                   elevation: 2, // Add elevation for shadow effect
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), // Rounded corners for the card
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0), // Add padding inside the card
+                    padding: const EdgeInsets.all(12.0), // Add padding inside the card
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -103,15 +103,16 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                         buildTextWithIndentation(
                           "RA 10173, otherwise known as the Data Privacy Act, seeks to protect the citizens’ right to their personal, sensitive information. By proceeding to answering this form, you agree to submit your own data, which the data manager pledges to not publish or disclose any information without due consent or permission of its owner.",
                         ),
-                        const SizedBox(height: 20), // Vertical space
+                        const SizedBox(height: 20),
                         buildTextWithIndentation(
                           "I hereby agree to submitting personal information and attest that the information to be provided in this form is complete, true, and correct.",
                         ),
+                        const SizedBox(height: 30),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 30), // Adjust the height value to control the vertical space
+                const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 15.0,
@@ -120,47 +121,53 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                     bottom: 0,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align buttons at the start and end of the row
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: goToLoginPage,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 50,
-                          width: 155, // Adjust width according to your design
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF8CD0CE),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: const Text(
-                            "I DISAGREE",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
+                      Flexible(
+                        flex: 1, // Each Flexible widget gets 1 portion of space
+                        child: GestureDetector(
+                          onTap: goToLoginPage,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            // Remove the width to allow the button to be responsive
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF8CD0CE),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: const Text(
+                              "I DISAGREE",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
                       ),
                       const SizedBox(width: 20), // Add space between buttons
-                      GestureDetector(
-                        onTap: goToSignupPage,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 50,
-                          width: 155, // Adjust width according to your design
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF1A915A),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: const Text(
-                            "I AGREE",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
+                      Flexible(
+                        flex: 1, // Each Flexible widget gets 1 portion of space
+                        child: GestureDetector(
+                          onTap: goToSignupPage,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            // Remove the width to allow the button to be responsive
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1A915A),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: const Text(
+                              "I AGREE",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),

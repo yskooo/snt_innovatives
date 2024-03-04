@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
       useInheritedMediaQuery: true, // Add this line
       locale: DevicePreview.locale(context), // Add this line
       builder: DevicePreview.appBuilder, // Add this line
+
       title: 'weConnect Smart City',
       theme: ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent.shade700),
@@ -193,6 +194,5 @@ class _HomeState extends State<Home> {
         },
       ),
     );
-
   }
 }
