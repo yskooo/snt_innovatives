@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: GoogleFonts.poppins( // Also Poppins for the description
                       fontSize: 11,
                       fontStyle: FontStyle.italic,
-                      height: 0,
+                      height: 2,
                     )),
                 const SizedBox(height: 30), // Adjust the height value to control the vertical space
                 Padding(
@@ -129,24 +129,29 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15.0,
-                    right: 15.0,
-                    top: 0,
-                    bottom: 0,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Checkbox(
-                            value: rememberMe,
-                            onChanged: (bool? value) {
-                              // Update the rememberMe state
-                            },
+                          Theme(
+                            data: Theme.of(context).copyWith(
+                              unselectedWidgetColor: Colors.grey, // Color for the unchecked box
+                            ),
+                            child: Checkbox(
+                              value: rememberMe,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  rememberMe = value!;
+                                });
+                              },
+                            ),
                           ),
-                          const Text('Remember Me'),
+                          const Text(
+                            'Remember Me',
+                            style: TextStyle(fontSize: 12), // Adjust font size as needed
+                          ),
                         ],
                       ),
                       GestureDetector(
@@ -156,12 +161,14 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           'Forgot Password?',
                           style: TextStyle(
+                            fontSize: 12, // Adjust font size as needed
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 15.0,
