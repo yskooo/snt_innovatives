@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase/login.dart';
-import 'package:flutter_supabase/signup.dart';
-import 'package:flutter_supabase/data_protection_privacy.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:device_preview/device_preview.dart';
 
+import 'login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,41 +21,59 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-
 final supabase = Supabase.instance.client;
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      useInheritedMediaQuery: true, // Add this line
-      locale: DevicePreview.locale(context), // Add this line
-      builder: DevicePreview.appBuilder, // Add this line
-
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       title: 'weConnect Smart City',
       theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent.shade700),
-      textTheme: GoogleFonts.poppinsTextTheme(),
-      useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent.shade700),
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        useMaterial3: true,
       ),
       home: const LoginPage(),
-      );
-    }
+    );
+  }
 }
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  late User currentUser;
 
-  //Sign Out User
+  @override
+  void initState() {
+    super.initState();
+    _fetchCurrentUser();
+  }
+
+  Future<void> _fetchCurrentUser() async {
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      setState(() {
+        currentUser = User(email: user.email!, profilePictureUrl: _getProfilePictureUrl(user.email!));
+      });
+    }
+  }
+
+  String _getProfilePictureUrl(String email) {
+    // Placeholder function to generate profile picture URL from email
+    // Replace this with your own logic to fetch profile pictures
+    return 'https://www.gravatar.com/avatar/${email.hashCode}?d=identicon';
+  }
+
   Future<void> signOut() async {
     await supabase.auth.signOut();
     if (!mounted) return;
@@ -66,17 +82,14 @@ class _HomeState extends State<Home> {
 
   final noteStream = supabase.from('notes').stream(primaryKey: ['id']);
 
-  //Create Note
   Future<void> createNote(String note) async {
     await supabase.from('notes').insert({'body': note});
   }
 
-  // Update Note
   Future<void> updateNote(String noteId, String updatedNote) async {
     await supabase.from('notes').update({'body': updatedNote}).eq('id', noteId);
   }
 
-  // Delete Note
   Future<void> deleteNote(String noteId) async {
     await supabase.from('notes').delete().eq('id', noteId);
   }
@@ -87,6 +100,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text("Mabuhay"),
         actions: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(currentUser.profilePictureUrl),
+          ),
           IconButton(
             onPressed: signOut,
             icon: const Icon(Icons.logout_outlined),
@@ -97,20 +113,21 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
-              context: context,
-              builder: (context) {
-                return SimpleDialog(
-                  title: const Text('Add a note'),
-                  children: [
-                    TextFormField(
-                      onFieldSubmitted: (value) {
-                        createNote(value);
-                        if (mounted) Navigator.pop(context);
-                      },
-                    )
-                  ],
-                );
-              });
+            context: context,
+            builder: (context) {
+              return SimpleDialog(
+                title: const Text('Add a note'),
+                children: [
+                  TextFormField(
+                    onFieldSubmitted: (value) {
+                      createNote(value);
+                      if (mounted) Navigator.pop(context);
+                    },
+                  )
+                ],
+              );
+            },
+          );
         },
         child: const Icon(Icons.add),
       ),
@@ -196,3 +213,11 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+class User {
+  final String email;
+  final String profilePictureUrl;
+
+  User({required this.email, required this.profilePictureUrl});
+}
+
