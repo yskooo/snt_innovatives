@@ -89,7 +89,8 @@ class _LoginPageState extends State<LoginPage> {
                       right: 15.0,
                       top: 15.0,
                       bottom: 0,
-                    ),                    child: Container(
+                    ),
+                    child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(51),
                         border: Border.all(color: Colors.black54),

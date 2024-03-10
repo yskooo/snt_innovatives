@@ -9,8 +9,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(
-    url: 'https://nfjugkyvdhqvdywedvjt.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5manVna3l2ZGhxdmR5d2Vkdmp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkyOTA0NTYsImV4cCI6MjAyNDg2NjQ1Nn0.I6N8h0hD3nCcs9IJHPYr1MJlpSAPGuWiR4FYk4cBIXE',
+    url: 'https://sgkbfaxjpcztoaivcrlu.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNna2JmYXhqcGN6dG9haXZjcmx1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDk4ODM3NjQsImV4cCI6MjAyNTQ1OTc2NH0.vvmdh7TTroPcg_rDNH305XokhgTtZ6300L6xrSTUxo8'
   );
 
   DevicePreview(
@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       title: 'weConnect Smart City',
@@ -80,6 +79,7 @@ class _HomeState extends State<Home> {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
 
+
   final noteStream = supabase.from('notes').stream(primaryKey: ['id']);
 
   Future<void> createNote(String note) async {
@@ -98,11 +98,27 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mabuhay"),
-        actions: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(currentUser.profilePictureUrl),
+        title: Text(
+          "Mabuhay",
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.bold,
+              fontSize: 32,
+              color: Colors.black,
+            ),
           ),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  // should be routed to User Profile
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(currentUser.profilePictureUrl),
+              ),
+            ),
           IconButton(
             onPressed: signOut,
             icon: const Icon(Icons.logout_outlined),
@@ -131,7 +147,8 @@ class _HomeState extends State<Home> {
         },
         child: const Icon(Icons.add),
       ),
-      body: StreamBuilder(
+      body:
+      StreamBuilder(
         stream: noteStream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {

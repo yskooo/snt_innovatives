@@ -469,7 +469,7 @@ class _SignUpPageState extends State<SignUpPage> {
             borderSide: const BorderSide(color: Colors.black54),
           ),
           suffixIcon: isDropdown
-              ? const Icon(Icons.arrow_drop_down, color: Colors.grey) // Dropdown icon
+              ? const Icon(Icons.arrow_drop_down, color: Colors.grey)
               : null,
           hintStyle: const TextStyle(
             fontSize: 12.0,
@@ -478,7 +478,7 @@ class _SignUpPageState extends State<SignUpPage> {
           contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
           alignLabelWithHint: true,
         ),
-        readOnly: isDropdown, // Make field read-only if it's a dropdown
+        readOnly: isDropdown,
       ),
     );
   }
