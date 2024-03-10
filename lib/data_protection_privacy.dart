@@ -28,16 +28,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.bold,
-            fontSize: 24, // Adjust the font size as needed
-            color: Colors.black87, // Change the color of the text
+            fontSize: 24,
+            color: Colors.black87,
           ),
         ),
       ),
       centerTitle: true,
       leading: CircleAvatar(
-        backgroundColor: Colors.white, // Background color of the circle
+        backgroundColor: Colors.white,
         child: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black), // Ensure icon color contrasts with background
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: onBack,
         ),
       ),
@@ -78,7 +78,7 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0), // Add padding around the SingleChildScrollView
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,9 +86,9 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                 Card(
                   color: Colors.white, // Set card color to white
                   elevation: 2, // Add elevation for shadow effect
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), // Rounded corners for the card
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0), // Add padding inside the card
+                    padding: const EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -147,15 +147,14 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 20), // Add space between buttons
+                      const SizedBox(width: 20),
                       Flexible(
-                        flex: 1, // Each Flexible widget gets 1 portion of space
+                        flex: 1,
                         child: GestureDetector(
                           onTap: goToSignupPage,
                           child: Container(
                             alignment: Alignment.center,
                             height: 50,
-                            // Remove the width to allow the button to be responsive
                             decoration: BoxDecoration(
                               color: const Color(0xFF1A915A),
                               borderRadius: BorderRadius.circular(50),
@@ -175,7 +174,7 @@ class _DataProtectionPrivacyPageState extends State<DataProtectionPrivacyPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 30), // Adjust the height value to control the vertical space
+                const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 0,
@@ -201,7 +200,7 @@ Widget buildTextWithIndentation(String text, {double indentSize = 20.0}) {
     TextSpan(
       children: [
         WidgetSpan(
-          child: SizedBox(width: indentSize), // Indent size
+          child: SizedBox(width: indentSize),
         ),
         TextSpan(text: text),
       ],
