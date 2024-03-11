@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase/pages/personal_info_widget.dart';
-import 'package:flutter_supabase/pages/security_info_widget.dart';
+import 'package:flutter_supabase/pages/user_personal_info_widget.dart';
+import 'package:flutter_supabase/pages/user_security_info_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/bottom_navigationbar.dart';
 
