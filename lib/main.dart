@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:device_preview/device_preview.dart';
-
-import 'login.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'auth/login.dart';
+import 'pages/user_profile_page.dart';
+import 'package:flutter_supabase/widgets/bottom_navigationbar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +51,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _selectedIndex = 0; // Current selected index for bottom navigation bar
+
+  // Callback function to handle bottom navigation bar item tap
+  void _onItemTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   late User currentUser;
 
   @override
@@ -112,7 +121,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   // should be routed to User Profile
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  MaterialPageRoute(builder: (context) => const UserProfilePage()),
                 );
               },
               child: CircleAvatar(
@@ -226,6 +235,10 @@ class _HomeState extends State<Home> {
             },
           );
         },
+      ),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTap: _onItemTap,
       ),
     );
   }

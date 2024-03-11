@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase/signup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'main.dart';
-import 'data_protection_privacy.dart';
+import '../main.dart';
+import '../pages/data_protection_privacy_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
