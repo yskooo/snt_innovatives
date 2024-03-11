@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase/login.dart';
+import 'package:flutter_supabase/auth/login.dart';
 import 'package:flutter_supabase/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
