@@ -128,7 +128,10 @@ class _HomeState extends State<Home> {
                 backgroundImage: NetworkImage(currentUser.profilePictureUrl),
               ),
             ),
-
+            IconButton(
+              onPressed: signOut,
+              icon: const Icon(Icons.logout_outlined),
+            )
         ],
         automaticallyImplyLeading: false,
       ),
