@@ -99,7 +99,12 @@ class _SignUpPageState extends State<SignUpPage> {
 
 // Dropdown of Employment
   String? selectedEmploymentType;
-  List<String> employmentTypes = ['Full-time', 'Part-time', 'Self-employed', 'Unemployed'];
+  List<String> employmentTypes = [
+    'Full-time',
+    'Part-time',
+    'Self-employed',
+    'Unemployed'
+  ];
 
   @override
   void initState() {
@@ -184,7 +189,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                     });
                   },
-                  hint: const Text("Marital Status"), // Placeholder text as a hint
+                  hint: const Text("Marital Status"),
+                  // Placeholder text as a hint
                   items: maritalStatuses.map<DropdownMenuItem<String>>(
                         (String value) {
                       return DropdownMenuItem<String>(
@@ -268,7 +274,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       selectedEmploymentType = newValue;
                     });
                   },
-                  items: employmentTypes.map<DropdownMenuItem<String>>((String value) {
+                  items: employmentTypes.map<DropdownMenuItem<String>>((
+                      String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -444,41 +451,51 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _buildTextField({
     required TextEditingController controller,
-    required String hintText,
+    required String hintText, // Keep hintText parameter name
     bool obscureText = false,
-    bool isDropdown = false, // New parameter
+    bool isDropdown = false,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        textAlignVertical: TextAlignVertical.top,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(51),
-            borderSide: const BorderSide(color: Colors.black54),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            hintText, // Display hintText as external label
+            style: const TextStyle(
+              fontSize: 16.0, // Adjust label size as needed
+              color: Colors.black87, // Adjust label color as needed
+              fontWeight: FontWeight
+                  .bold, // Optional: Makes it visually distinct
+            ),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(51),
-            borderSide: const BorderSide(color: Colors.black54),
+          const SizedBox(height: 8),
+          // Space between the label and the TextFormField
+          TextFormField(
+            controller: controller,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(51),
+                borderSide: const BorderSide(color: Colors.black54),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(51),
+                borderSide: const BorderSide(color: Colors.black54),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(51),
+                borderSide: const BorderSide(color: Colors.black54),
+              ),
+              suffixIcon: isDropdown ? const Icon(
+                  Icons.arrow_drop_down, color: Colors.grey) : null,
+              hintText: '',
+              // Clear hintText to prevent duplicate text
+              contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+            ),
+            readOnly: isDropdown,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(51),
-            borderSide: const BorderSide(color: Colors.black54),
-          ),
-          suffixIcon: isDropdown
-              ? const Icon(Icons.arrow_drop_down, color: Colors.grey)
-              : null,
-          hintStyle: const TextStyle(
-            fontSize: 12.0,
-            color: Colors.blueGrey,
-          ),
-          contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
-          alignLabelWithHint: true,
-        ),
-        readOnly: isDropdown,
+        ],
       ),
     );
   }
