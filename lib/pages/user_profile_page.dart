@@ -43,8 +43,16 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 MaterialPageRoute(builder: (context) => const UserProfilePage()),
               );
             },
-            child: const CircleAvatar(
-              // backgroundImage: NetworkImage(currentUser.profilePictureUrl),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10), // Adjust horizontal padding as needed
+              child: CircleAvatar(
+                radius: 24, // Adjust the size of the CircleAvatar as needed
+                backgroundColor: Colors.grey[200], // A light background color
+                child: const Icon(
+                  Icons.settings_outlined, // The outlined settings icon
+                  color: Colors.black87, // Icon color
+                ),
+              ),
             ),
           ),
         ],
@@ -59,8 +67,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CircleAvatar(
+                    backgroundImage: NetworkImage('https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/370519707_1026008071923134_6003760270648124061_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=V_tmg2OwmTkAX_jqe2T&_nc_ht=scontent.fmnl8-1.fna&oh=00_AfDMp2cGWDKyobu09C4nUKwzc9u6_hX3KDAHtGK0s4q9Yg&oe=65F3E29E'),
                     radius: 50,
-                    backgroundImage: NetworkImage('https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/370519707_1026008071923134_6003760270648124061_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=V_tmg2OwmTkAX_jqe2T&_nc_ht=scontent.fmnl8-1.fna&oh=00_AfDMp2cGWDKyobu09C4nUKwzc9u6_hX3KDAHtGK0s4q9Yg&oe=65F3E29E'), // Placeholder image URL
                   ),
                   const SizedBox(height: 10.0),
                   Text(
@@ -74,8 +82,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      left: 5.0,
-                      right: 5.0,
+                      left: 10.0,
+                      right: 10.0,
                       top: 5.0,
                       bottom: 15.0,
                     ),
@@ -157,8 +165,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     padding: const EdgeInsets.only(
                       left: 5.0,
                       right: 5.0,
-                      top: 200.0,
-                      bottom: 0,
+                      top: 0,
+                      bottom: 10.0,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
