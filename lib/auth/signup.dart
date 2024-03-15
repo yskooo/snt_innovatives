@@ -451,7 +451,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _buildTextField({
     required TextEditingController controller,
-    required String hintText, // Keep hintText parameter name
+    required String hintText,
     bool obscureText = false,
     bool isDropdown = false,
   }) {
@@ -461,12 +461,12 @@ class _SignUpPageState extends State<SignUpPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            hintText, // Display hintText as external label
+            hintText,
             style: const TextStyle(
-              fontSize: 16.0, // Adjust label size as needed
-              color: Colors.black87, // Adjust label color as needed
+              fontSize: 16.0,
+              color: Colors.black87,
               fontWeight: FontWeight
-                  .bold, // Optional: Makes it visually distinct
+                  .bold,
             ),
           ),
           const SizedBox(height: 8),
