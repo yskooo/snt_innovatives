@@ -7,6 +7,10 @@ import 'auth/login.dart';
 import 'pages/user_profile_page.dart';
 import 'package:flutter_supabase/widgets/bottom_navigationbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'components/health_wellness_route.dart';
+import 'components/public_safety_route.dart';
+import 'components/emergency_hotlines_route.dart';
+import 'components/raise_concerns_route.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -92,6 +96,26 @@ class _HomeState extends State<Home> {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
+  // Widget _buildFeatureBox(BuildContext context, IconData icon, String label, Widget destinationPage) {
+  //   return InkWell(
+  //     onTap: () {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => destinationPage),
+  //       );
+  //     },
+  //     child: Padding(
+  //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+  //       child: Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: <Widget>[
+  //           Icon(icon, size: 50.0),
+  //           Text(label),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -163,12 +187,10 @@ class _HomeState extends State<Home> {
                     ),
                     child: Row(
                       children: [
-                        _buildFeatureBox(Icons.monitor_heart_rounded, "Health Wellness"),
-                        _buildFeatureBox(Icons.security, "Public Safety"),
-                        _buildFeatureBox(
-                            Icons.local_hospital_rounded, "Emergency Hotlines"),
-                        _buildFeatureBox(
-                            Icons.document_scanner_rounded, "Raise Concerns"),
+                        _buildFeatureBox(context, Icons.monitor_heart_rounded, "Health Wellness", const HealthWellnessRoute()),
+                        _buildFeatureBox(context, Icons.security, "Public Safety", const PublicSafetyRoute()),
+                        _buildFeatureBox(context, Icons.local_hospital_rounded, "Emergency Hotlines", const EmergencyHotlinesRoute()),
+                        _buildFeatureBox(context, Icons.document_scanner_rounded, "Raise Concerns", const  RaiseConcernsRoute()),
                       ],
                     ),
                   ),
@@ -335,39 +357,47 @@ class User {
   User({required this.email, required this.profilePictureUrl});
 }
 
-Widget _buildFeatureBox(IconData icon, String label) {
+Widget _buildFeatureBox(BuildContext context, IconData icon, String label, Widget destinationPage) {
   List<String> words = label.split(' ');
-  // Join the words with newline characters
   String wrappedLabel = words.join('\n');
-  return Column(
-    children: [
-      Container(
-        width: 80, // Adjust width of the box
-        height: 80, // Adjust height of the box
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        decoration: BoxDecoration(
-          color: const Color(0xFF1A915A), // Green color
-          borderRadius: BorderRadius.circular(16), // Adjust border radius as needed
-        ),
-        child: Center(
-          child: Icon(
-            icon,
-            size: 30, // Adjust size of icon
-            color: Colors.white,
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => destinationPage),
+      );
+    },
+    child: Column(
+      children: [
+        Container(
+          width: 80, // Adjust width of the box
+          height: 80, // Adjust height of the box
+          margin: const EdgeInsets.symmetric(horizontal: 8),
+          decoration: BoxDecoration(
+            color: const Color(0xFF1A915A), // Green color
+            borderRadius: BorderRadius.circular(16), // Adjust border radius as needed
+          ),
+          child: Center(
+            child: Icon(
+              icon,
+              size: 30, // Adjust size of icon
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      const SizedBox(height: 8), // Add vertical space between box and text
-      Text(
-        wrappedLabel,
-        style: const TextStyle(color: Colors.black, fontSize: 12),
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.ellipsis, // Prevents overflow by showing ellipsis
-        maxLines: 2,
-      ),
-    ],
+        const SizedBox(height: 8), // Add vertical space between box and text
+        Text(
+          wrappedLabel,
+          style: const TextStyle(color: Colors.black, fontSize: 12),
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis, // Prevents overflow by showing ellipsis
+          maxLines: 2,
+        ),
+      ],
+    ),
   );
 }
+
 
 // 2 CITY SERVICES WIDGETS
 Widget _buildServiceBox(String title, IconData icon) {
