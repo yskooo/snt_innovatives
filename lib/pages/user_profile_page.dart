@@ -35,6 +35,12 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(""),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           GestureDetector(
             onTap: () {
@@ -67,7 +73,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const CircleAvatar(
-                    backgroundImage: NetworkImage('https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/370519707_1026008071923134_6003760270648124061_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=V_tmg2OwmTkAX_jqe2T&_nc_ht=scontent.fmnl8-1.fna&oh=00_AfDMp2cGWDKyobu09C4nUKwzc9u6_hX3KDAHtGK0s4q9Yg&oe=65F3E29E'),
+                    backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/90546802?v=4'),
                     radius: 50,
                   ),
                   const SizedBox(height: 10.0),
@@ -267,7 +273,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       ),
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: _selectedIndex,
-        onItemTap: _onItemTap,
+        // onItemTap: _onItemTap,
       ),
     );
   }
