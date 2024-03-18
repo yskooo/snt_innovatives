@@ -19,12 +19,12 @@ class RaiseConcernsRoute extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Navigator.pop(context);
                         },
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Center(
                           child: Text(
                             'Raise Concerns',
@@ -35,7 +35,7 @@ class RaiseConcernsRoute extends StatelessWidget {
                           ),
                         ),
                       ),
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundImage: AssetImage('assets/avatar.png'), // Adjust image as needed
                       ),
                     ],
