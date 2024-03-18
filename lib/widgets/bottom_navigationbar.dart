@@ -1,17 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase/main.dart';
+import 'package:flutter_supabase/pages/user_profile_page.dart';
 
-// Callback function type definition
-typedef OnNavItemTap = void Function(int index);
-
-class CustomBottomNavBar extends StatelessWidget {
+class CustomBottomNavBar extends StatefulWidget {
   final int selectedIndex;
-  final OnNavItemTap onItemTap;
 
   const CustomBottomNavBar({
     Key? key,
     required this.selectedIndex,
-    required this.onItemTap,
   }) : super(key: key);
+
+  @override
+  State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
+}
+
+class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
+  void _onItemTap(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
+        break;
+    // case 1:
+    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NotificationsPage()));
+    //   break;
+    // case 2:
+    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MessagesPage()));
+    //   break;
+      case 3:
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UserProfilePage()));
+        break;
+    }
+  }
+
+  Widget _animatedIcon(BuildContext context, IconData iconData, int index) {
+    bool isSelected = widget.selectedIndex == index;
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.white : Colors.transparent,
+        shape: BoxShape.circle,
+        boxShadow: isSelected
+            ? [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 1),
+          ),
+        ]
+            : [],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Icon(
+          iconData,
+          color: isSelected ? const Color(0xFF1A915A) : Colors.white,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,46 +74,29 @@ class CustomBottomNavBar extends StatelessWidget {
       ),
       child: BottomNavigationBar(
         items: [
-          _buildBottomNavItem(Icons.home_outlined, 0),
-          _buildBottomNavItem(Icons.notifications_outlined, 1),
-          _buildBottomNavItem(Icons.message_outlined, 2),
-          _buildBottomNavItem(Icons.person_outlined, 3),
-        ],
-        currentIndex: selectedIndex,
-        onTap: onItemTap,
-        backgroundColor: Colors.transparent, // Make the background transparent
-        elevation: 0, // Remove the shadow
-        type: BottomNavigationBarType.fixed, // Ensure labels are always shown
-      ),
-    );
-  }
-
-  BottomNavigationBarItem _buildBottomNavItem(IconData iconData, int index) {
-    return BottomNavigationBarItem(
-      icon: Container(
-        decoration: BoxDecoration(
-          color: selectedIndex == index ? Colors.white : Colors.transparent,
-          shape: BoxShape.circle,
-          boxShadow: selectedIndex == index
-              ? [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 1),
-            ),
-          ]
-              : [],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Icon(
-            iconData,
-            color: selectedIndex == index ? const Color(0xFF1A915A) : Colors.white, // Icon color changes based on selection
+          BottomNavigationBarItem(
+            icon: _animatedIcon(context, Icons.home_outlined, 0),
+            label: '',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: _animatedIcon(context, Icons.notifications_outlined, 1),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: _animatedIcon(context, Icons.message_outlined, 2),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: _animatedIcon(context, Icons.person_outlined, 3),
+            label: '',
+          ),
+        ],
+        currentIndex: widget.selectedIndex,
+        onTap: (index) => _onItemTap(context, index),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        type: BottomNavigationBarType.fixed,
       ),
-      label: '',
     );
   }
 }
