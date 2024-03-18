@@ -96,26 +96,6 @@ class _HomeState extends State<Home> {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
-  // Widget _buildFeatureBox(BuildContext context, IconData icon, String label, Widget destinationPage) {
-  //   return InkWell(
-  //     onTap: () {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => destinationPage),
-  //       );
-  //     },
-  //     child: Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-  //       child: Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: <Widget>[
-  //           Icon(icon, size: 50.0),
-  //           Text(label),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +185,7 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(8.0),
                         image: const DecorationImage(
                           image: NetworkImage(
-                              "https://scontent.fmnl8-2.fna.fbcdn.net/v/t39.30808-6/394293201_295529599956199_900468275556561837_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=kpVmejhCdlkAX-Ra_Tj&_nc_ht=scontent.fmnl8-2.fna&oh=00_AfDfNpvCD4izyI4NpsacHAq7inwjmPZYObgQvIeWn85-ow&oe=65F7069E"),
+                              "https://philstarlife.s3.ap-east-1.amazonaws.com/photos/Justine/111%20start-up%20lessons/123146653_676248916617015_9057562074102309241_n.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -217,23 +197,12 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(8.0),
                         image: const DecorationImage(
                           image: NetworkImage(
-                              "https://scontent.fmnl8-3.fna.fbcdn.net/v/t39.30808-6/391662228_303902002393165_7520637264579023501_n.jpg?stp=dst-jpg_p960x960&_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=xnS24tAUbnMAX9_ZhGv&_nc_ht=scontent.fmnl8-3.fna&oh=00_AfB617T8UChw4eTBy8IqwNwaQGH75CydDE-ZuiQwMniruw&oe=65F71E80"),
+                            "https://i0.wp.com/thewordyhabitat.com/wp-content/uploads/2021/08/start-up-do-san-yong-san-chul-san.jpg?resize=900%2C600&ssl=1"),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     //3rd Image of Slider
-                    Container(
-                      margin: const EdgeInsets.all(6.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                              "https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/394298957_348700597540417_4747465536129137285_n.jpg?stp=dst-jpg_p720x720&_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=1ahW-O3jpRwAX-KpEv8&_nc_ht=scontent.fmnl8-1.fna&oh=00_AfBy6SA27C1HXkL_km09sXZcIfSVmZkfRTbx4kPEJ-JWLw&oe=65F7A743"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
                   ],
                   //Slider Container properties
                   options: CarouselOptions(
@@ -344,7 +313,7 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: _selectedIndex,
-        onItemTap: _onItemTap,
+        // onItemTap: _onItemTap,
       ),
     );
   }
@@ -411,8 +380,7 @@ Widget _buildServiceBox(String title, IconData icon) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(icon, color: const Color(0xFF1A915A), size: 24), // Icon size adjusted for consistency
-        const SizedBox(height: 8),
+        Icon(icon, color: const Color(0xFF1A915A), size: 24),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: title.split(" ").map((word) => Text(
