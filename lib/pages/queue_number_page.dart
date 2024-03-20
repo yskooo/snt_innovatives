@@ -178,7 +178,6 @@ class QueueNumberPage extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      // margin: const EdgeInsets.only(top: 10), // Add margin if required
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, // Align content to the start
         children: [

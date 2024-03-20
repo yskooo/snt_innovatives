@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
                       children: [
                         _buildFeatureBox(context, Icons.monitor_heart_rounded, "Health Wellness", const HealthWellnessRoute()),
                         _buildFeatureBox(context, Icons.security, "Public Safety", const PublicSafetyRoute()),
-                        _buildFeatureBox(context, Icons.local_hospital_rounded, "Emergency Hotlines", const EmergencyHotlinesRoute()),
+                        _buildFeatureBox(context, Icons.local_hospital_rounded, "Emergency Hotlines", EmergencyHotlinesRoute()),
                         _buildFeatureBox(context, Icons.document_scanner_rounded, "Raise Concerns", const  RaiseConcernsRoute()),
                       ],
                     ),
