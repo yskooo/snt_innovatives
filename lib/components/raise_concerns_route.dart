@@ -7,37 +7,90 @@ class RaiseConcernsRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
+        title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('Concerns', style: TextStyle(fontWeight: FontWeight.bold)),
             Text('Raise issues & Concerns', style: TextStyle(fontSize: 12)),
           ],
         ),
         actions: const [
           CircleAvatar(
-            // Assuming using a placeholder image for UserProfile
-            backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+            backgroundImage: NetworkImage(
+                'https://avatars.githubusercontent.com/u/90546802?v=4'),
           ),
           SizedBox(width: 10), // For some spacing
         ],
       ),
-      body: ListView.builder(
-        itemCount: 5, // Assuming there are 5 concerns raised
-        itemBuilder: (context, index) {
-          // Build each concern item
-          return _buildConcernItem(context, index);
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center( // Center the Row
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center, // Center the items horizontally
+                children: [
+                  _buildSpecialItem(
+                    context,
+                    "Report Issues",
+                    Icons.warning_amber_outlined,
+                    Colors.black87,
+                    Color(0xFFE69D1E), // Background color for "Report Issues"
+                  ),
+                  SizedBox(width: 10), // Space between boxes
+                  _buildSpecialItem(
+                    context,
+                    "Raise Concerns",
+                    Icons.campaign_outlined,
+                    Colors.black87,
+                    Color(0xFFE69D1E), // Background color for "Raise Concerns"
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            // This ListView.builder is now properly aligned below the special items.
+            child: ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return _buildConcernItem(context, index);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
+  Widget _buildSpecialItem(BuildContext context, String text, IconData icon,
+      Color textColor, Color backgroundColor) {
+    return Container(
+      width: 175, // Adjust the width as needed
+      height: 175, // Adjust the height as needed
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        // Use the background color passed as a parameter
+        borderRadius: BorderRadius.circular(8), // Add some rounding
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: textColor),
+          SizedBox(height: 5), // Add space between icon and text
+          Text(text, style: TextStyle(color: textColor)),
+        ],
+      ),
+    );
+  }
+}
+
   Widget _buildConcernItem(BuildContext context, int index) {
     // Placeholder data for demonstration
-    final String image = 'assets/concern_images/image$index.jpg';
-    final String headline = 'Concern #$index Headline';
-    final String user = 'User Name';
-    final String location = 'Location Name';
+    final String image = 'assets/Images/maloloschurch.svg';
+    final String headline = 'Concern #$index: Traffic';
+    final String user = 'Mary Grace';
+    final String location = 'Malolos City, Bulacan';
 
     return Card(
       margin: const EdgeInsets.all(8),
@@ -50,13 +103,13 @@ class RaiseConcernsRoute extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                image: AssetImage(image),
+              image: const DecorationImage(
+                image: NetworkImage('https://www.mabeybridge.com/__data/assets/image/0021/5394/varieties/1200.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          const SizedBox(width: 10), // Horizontal space between image and text
+          const SizedBox(width: 10),
           // Right side with text content
           Expanded(
             child: Column(
@@ -73,8 +126,17 @@ class RaiseConcernsRoute extends StatelessWidget {
                   style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 // Location
-                Text(
-                  'Location: $location',
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.black54,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      location,
+                    ),
+                  ],
                 ),
                 // Row of buttons
                 Row(
@@ -83,17 +145,31 @@ class RaiseConcernsRoute extends StatelessWidget {
                       onPressed: () {
                         // Action on button press
                       },
-                      child: const Text('Button 1'),
+                      child: const Text('Reshare'),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.black, backgroundColor: Colors.white, // Text color
+                        side: BorderSide(color: Colors.black, width: 1), // Border color and width
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8), // Slightly rounded corners
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 10), // Space between buttons
                     ElevatedButton(
                       onPressed: () {
                         // Action on button press
                       },
-                      child: const Text('Button 2'),
+                      child: const Text('Resolved'),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white, backgroundColor: Color(0xFFE69D1E), // Text color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8), // Slightly rounded corners
+                        ),
+                      ),
                     ),
                   ],
                 ),
+
               ],
             ),
           ),
@@ -101,8 +177,3 @@ class RaiseConcernsRoute extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(home: const RaiseConcernsRoute()));
-}

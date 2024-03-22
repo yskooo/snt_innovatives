@@ -7,16 +7,16 @@ class PublicSafetyRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
+        title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('Notifications', style: TextStyle(fontWeight: FontWeight.bold)),
             Text('Alerts & Announcements', style: TextStyle(fontSize: 12)),
           ],
         ),
         actions: const [
           CircleAvatar(
-            backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+            backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/90546802?v=4'),
           ),
           SizedBox(width: 10), // For some spacing
         ],
@@ -25,8 +25,8 @@ class PublicSafetyRoute extends StatelessWidget {
         itemCount: 5, // Assuming there are 5 notifications
         itemBuilder: (context, index) {
           return NotificationCard(
-            title: 'System Update',
-            content: 'A new system update is available. Please update your app for the best experience.',
+            title: '📢 Attention, Residents of Malolos!',
+            content: 'We are excited to announce that a new system update is now available for our community app! 📲✨',
             dateTime: DateTime.now().subtract(const Duration(hours: 1)),
             onTap: () {
               // Handle tap on notification

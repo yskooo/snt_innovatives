@@ -204,7 +204,6 @@ class _HomeState extends State<Home> {
                     ),
                     //3rd Image of Slider
                   ],
-                  //Slider Container properties
                   options: CarouselOptions(
                     height: 180.0,
                     enlargeCenterPage: true,

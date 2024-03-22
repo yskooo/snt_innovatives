@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_supabase/main.dart';
 import 'package:flutter_supabase/pages/user_profile_page.dart';
 
+import '../components/public_safety_route.dart';
+import '../components/raise_concerns_route.dart';
+
 class CustomBottomNavBar extends StatefulWidget {
   final int selectedIndex;
 
@@ -20,12 +23,12 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       case 0:
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
         break;
-    // case 1:
-    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NotificationsPage()));
-    //   break;
-    // case 2:
-    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MessagesPage()));
-    //   break;
+    case 1:
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PublicSafetyRoute()));
+      break;
+    case 2:
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RaiseConcernsRoute()));
+      break;
       case 3:
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UserProfilePage()));
         break;
