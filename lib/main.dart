@@ -145,10 +145,10 @@ class _HomeState extends State<Home> {
                           currentUser.profilePictureUrl),
                     ),
                   ),
-                  IconButton(
-                    onPressed: signOut,
-                    icon: const Icon(Icons.logout_outlined),
-                  ),
+                  // IconButton(
+                  //   onPressed: signOut,
+                  //   icon: const Icon(Icons.logout_outlined),
+                  // ),
                 ],
               ),
             ),

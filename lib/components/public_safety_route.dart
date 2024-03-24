@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import '../widgets/bottom_navigationbar.dart'; // Ensure this import is correct for your project structure
 
-class PublicSafetyRoute extends StatelessWidget {
+class PublicSafetyRoute extends StatefulWidget {
   const PublicSafetyRoute({Key? key}) : super(key: key);
+
+  @override
+  State<PublicSafetyRoute> createState() => _PublicSafetyRouteState();
+}
+
+class _PublicSafetyRouteState extends State<PublicSafetyRoute> {
+  int _selectedIndex = 0; // Initialize the selected index for the bottom navigation bar
+
+  // Callback function to handle bottom navigation bar item tap
+  void _onItemTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +30,12 @@ class PublicSafetyRoute extends StatelessWidget {
           ],
         ),
         actions: const [
-          CircleAvatar(
-            backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/90546802?v=4'),
+          Padding(
+            padding: EdgeInsets.only(right: 10), // Adjusted padding for the avatar
+            child: CircleAvatar(
+              backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/90546802?v=4'),
+            ),
           ),
-          SizedBox(width: 10), // For some spacing
         ],
       ),
       body: ListView.builder(
@@ -33,6 +50,10 @@ class PublicSafetyRoute extends StatelessWidget {
             },
           );
         },
+      ),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        // onItemTap: _onItemTap, // Use the callback function to handle navigation item taps
       ),
     );
   }
@@ -96,4 +117,3 @@ class NotificationCard extends StatelessWidget {
     return "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')} ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
   }
 }
-
