@@ -13,7 +13,7 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  int _selectedIndex = 0; // bottom navigation bar
+  int _selectedIndex = 3; // bottom navigation bar
   int _stackIndex = 0; // user profile
 
   // Callback function to handle bottom navigation bar item tap

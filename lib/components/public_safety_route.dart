@@ -9,7 +9,7 @@ class PublicSafetyRoute extends StatefulWidget {
 }
 
 class _PublicSafetyRouteState extends State<PublicSafetyRoute> {
-  int _selectedIndex = 0; // Initialize the selected index for the bottom navigation bar
+  int _selectedIndex = 1; // Initialize the selected index for the bottom navigation bar
 
   // Callback function to handle bottom navigation bar item tap
   void _onItemTap(int index) {
