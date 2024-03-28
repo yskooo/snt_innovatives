@@ -57,7 +57,6 @@ class _JobOpportunitiesRouteState extends State<JobOpportunitiesRoute> {
   Widget _buildJobItem(BuildContext context, int index) {
     // Placeholder for your actual implementation
     final String jobTitle = 'Software Engineer';
-    final String companyName = 'ABC Tech';
     final String location = 'San Francisco, CA';
 
     return Card(
@@ -66,8 +65,8 @@ class _JobOpportunitiesRouteState extends State<JobOpportunitiesRoute> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 100,
-            height: 100,
+            width: 120,
+            height: 120,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Color(0xFFE69D1E), // Use the desired color
@@ -102,10 +101,6 @@ class _JobOpportunitiesRouteState extends State<JobOpportunitiesRoute> {
                       icon: Icon(Icons.bookmark_border),
                     ),
                   ],
-                ),
-                Text(
-                  'Company: $companyName',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 Row(
                   children: [
