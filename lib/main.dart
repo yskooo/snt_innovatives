@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'auth/login.dart';
+import 'city_services/job_opportunities.dart';
 import 'pages/user_profile_page.dart';
 import 'package:flutter_supabase/widgets/bottom_navigationbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -261,9 +262,17 @@ class _HomeState extends State<Home> {
                               const SizedBox(width: 8), // Adjust spacing between widgets
                               Expanded(
                                 flex: 2,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: _buildLongServiceBox('Job Opportunities', Icons.work_history_rounded),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => JobOpportunitiesRoute()),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: _buildLongServiceBox('Job Opportunities', Icons.work_history_rounded),
+                                  ),
                                 ),
                               ),
                             ],
@@ -279,7 +288,7 @@ class _HomeState extends State<Home> {
                         shrinkWrap: true,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center, // Center the row horizontally
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 flex: 2,
@@ -288,11 +297,19 @@ class _HomeState extends State<Home> {
                                   child: _buildLongServiceBox('Financial Assistance', Icons.money),
                                 ),
                               ),
-                              const SizedBox(width: 8), // Adjust spacing between widgets
+                              const SizedBox(width: 8),
                               Expanded(
-                                child: _buildServiceBox('Health Checkup', Icons.local_hospital),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => HealthWellnessRoute()),
+                                    );
+                                  },
+                                  child: _buildServiceBox('Health Checkup', Icons.local_hospital),
+                                ),
                               ),
-                              const SizedBox(width: 8), // Adjust spacing between widgets
+                              const SizedBox(width: 8),
                               Expanded(
                                 child: _buildServiceBox('View More', Icons.more_horiz_rounded),
                               ),
@@ -301,14 +318,116 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
+
                     const SizedBox(height: 16),
+                  ],
+                ),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(1.0),
+                      child: Text(
+                        'OPEN DATA',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          // Adjust font size dynamically
+                          fontSize: 17 * MediaQuery.of(context).textScaleFactor,
+                          shadows: const [
+                            Shadow(color: Colors.black, offset: Offset(0.2, 0.2)),
+                            Shadow(color: Colors.black, offset: Offset(-0.2, -0.2)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // padding: EdgeInsets.all(15.0),
+                      height: MediaQuery.of(context).size.height * 0.3, // Responsive height
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 120, // Consider making this responsive if needed
+                            height: 120,
+                            decoration: BoxDecoration(
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Malolos 2023 Dashboard',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18 * MediaQuery.of(context).textScaleFactor,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Here goes the description text.',
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 14 * MediaQuery.of(context).textScaleFactor,
+                                    ),
+                                  ),
+                                  // Spacer(),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: Colors.blue,
+                                      // Adjust button padding dynamically
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: MediaQuery.of(context).size.height * 0.01,
+                                        horizontal: MediaQuery.of(context).size.width * 0.04,
+                                      ),
+                                      // Adjust shape and size dynamically
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Click here',
+                                      style: TextStyle(
+                                        fontSize: 14 * MediaQuery.of(context).textScaleFactor, // Dynamically scale the text size
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 )
 
-              ],
-            ),
-          ),
-        ],
+
+
+              ]),
+    )],
       ),
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: _selectedIndex,
